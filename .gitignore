@@ -1,0 +1,21 @@
+# Maven
+.m2/
+backend/.m2/
+
+# Java
+*.class
+*.jar
+target/
+
+# Node
+node_modules/
+
+# Angular
+dist/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
