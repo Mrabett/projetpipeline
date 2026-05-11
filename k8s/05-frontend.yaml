@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: mrabethedi0/smartpark-frontend:v7
+          image: mrabethedi0/smartpark-frontend:latest
           ports:
             - containerPort: 80
           resources:
