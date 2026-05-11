@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smartpark-backend
+  namespace: smartpark
+  labels:
+    app: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: mrabethedi0/smartpark-backend:v2
+          ports:
+            - containerPort: 8082
+          envFrom:
+            - configMapRef:
+                name: smartpark-config
+            - secretRef:
+                name: smartpark-secrets
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          readinessProbe:
+            httpGet:
+              path: /api/terrains
+              port: 8082
+            initialDelaySeconds: 120
+            periodSeconds: 15
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: /api/terrains
+              port: 8082
+            initialDelaySeconds: 150
+            periodSeconds: 30
+            failureThreshold: 5
